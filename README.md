@@ -1,4 +1,4 @@
-API for workout tracking
+# API for workout tracking
 
 To run the server, please execute the following from the root directory:
 go inside the workout (server) directory
@@ -19,3 +19,7 @@ run the server
 ```
 python manage.py runserver
 ```
+
+Note: You might have to install some other package as needed.
+
+You will have to create database for postgres with name "workoutdb" 
