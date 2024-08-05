@@ -78,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'workoutdb',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
         'HOST': 'localhost',  # or the IP address of your PostgreSQL server
         'PORT': '5432',       # the default PostgreSQL port
     }
@@ -103,6 +103,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'workout.User'  # Replace 'myapp' with your actual app name
 
 
 # Internationalization

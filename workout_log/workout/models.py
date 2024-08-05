@@ -4,10 +4,10 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator
 
 
-class User(models.Model):
+class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
-
+    username = models.CharField(max_length=150, unique=True, default='default_username')  # Provide a default
 
 class Workout(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -17,7 +17,8 @@ class Workout(models.Model):
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    def __str__(self):
+        return self.name
 
 # Exercise List Inventory
 class Exercise(models.Model):
@@ -27,10 +28,13 @@ class Exercise(models.Model):
     is_predefined = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    def __str__(self):
+        return self.name
 
 class WeightType(models.Model):
     name = models.CharField(max_length=10, choices=[('kg', 'Kilograms'), ('lb', 'Pounds')])
+    def __str__(self):
+        return self.name
 
 
 # Each individual exercise set performed in an workout
@@ -47,3 +51,6 @@ class Set(models.Model):
     is_warmup = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.exercise.name + ' - ' + str(self.reps) 
