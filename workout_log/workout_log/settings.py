@@ -81,8 +81,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'workoutdb',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
         'HOST': 'localhost',  # or the IP address of your PostgreSQL server
         'PORT': '5432',       # the default PostgreSQL port
     }
@@ -131,6 +131,9 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
     'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
 }
+
+AUTH_USER_MODEL = 'workout.User'  # Replace 'myapp' with your actual app name
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
