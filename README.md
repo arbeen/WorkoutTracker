@@ -3,10 +3,10 @@
 To run the server, please execute the following from the root directory:
 go inside the workout (server) directory
 
-install django and djangorestframework
+install django and djangorestframework 
 ```
 
-pip install django djangorestframework  psycopg2-binary  
+pip install django djangorestframework  psycopg2-binary rest_framework_simplejwt  
 ```
 
 make migrations and run

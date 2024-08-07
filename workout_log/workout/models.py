@@ -1,13 +1,8 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 
-
-class User(AbstractUser):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    email = models.EmailField(unique=True)
-    username = models.CharField(max_length=150, unique=True, default='default_username')  # Provide a default
 
 class Workout(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -17,8 +12,7 @@ class Workout(models.Model):
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    def __str__(self):
-        return self.name
+
 
 # Exercise List Inventory
 class Exercise(models.Model):
@@ -28,8 +22,7 @@ class Exercise(models.Model):
     is_predefined = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    def __str__(self):
-        return self.name
+
 
 class WeightType(models.Model):
     name = models.CharField(max_length=10, choices=[('kg', 'Kilograms'), ('lb', 'Pounds')])
@@ -53,4 +46,4 @@ class Set(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.exercise.name + ' - ' + str(self.reps) 
+        return self.exercise.name + ' - ' + str(self.reps)

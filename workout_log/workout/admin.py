@@ -1,14 +1,8 @@
 from django.contrib import admin
-from .models import Set, Workout, Exercise, WeightType, User
+from .models import Set, Workout, Exercise, WeightType
+from django.contrib.auth.models import User
 # Register your models here.
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'is_staff', 'is_active', 'date_joined', 'last_login')
-    list_filter = ('is_staff', 'is_active')
-    search_fields = ('username', 'email')
-    ordering = ('username', 'email')
-    
 @admin.register(Set)
 class SetAdmin(admin.ModelAdmin):
     list_display = ('workout', 'exercise', 'reps', 'weight', 'weight_type', 'rest_time', 'is_warmup', 'created_at', 'updated_at')
