@@ -1,12 +1,7 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
-
-
-class User(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    email = models.EmailField(unique=True)
 
 
 class Workout(models.Model):
@@ -33,7 +28,7 @@ class WeightType(models.Model):
     name = models.CharField(max_length=10, choices=[('kg', 'Kilograms'), ('lb', 'Pounds')])
 
 
-# Each individual exercise set performed in an workout
+# Each individual exercise set performed in a workout
 class Set(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     workout = models.ForeignKey(Workout,
