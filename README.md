@@ -92,3 +92,10 @@ One of our feature is the ability to calculate 1RM.  If you can do 100 weight fo
 
 Now if you calculate 1RM using our algorithm, it estimates the 1RM, i.e- the maximum weight you can lift as :
 ![img.png](assets/1RM.png)
+
+User summary
+- api/userprofile : Rest API for user summary
+
+Calling this gives summary data of user, their workout, and sets performed with weight reps and exercise name
+
+![img.png](assets/usersummary.png)

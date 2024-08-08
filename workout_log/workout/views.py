@@ -13,7 +13,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 from openai import OpenAI
 from .serializers import UserSerializer, WorkoutSerializer, ExerciseSerializer, WeightTypeSerializer, SetSerializer, \
-    RecommendSerializer, OneRepMaxSerializer
+    RecommendSerializer, OneRepMaxSerializer, UserWorkoutSerializer, UserProfileSerializer, UserSetSerializer
 from .models import Workout, Exercise, WeightType, Set
 
 
@@ -76,6 +76,23 @@ def calculate_one_rep_max(request):
         else:
             return Response({'error': 'No sets found for this exercise'}, status=status.HTTP_404_NOT_FOUND)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfileViewSet(viewsets.ViewSet):
+    def list(self, request):
+        user = User.objects.get(username=request.user.username)
+        workouts = Workout.objects.filter(user=user)
+        sets = Set.objects.filter(workout__in=workouts)
+
+        user_serializer = UserProfileSerializer(user)
+        workout_serializer = UserWorkoutSerializer(workouts, many=True)
+        set_serializer = UserSetSerializer(sets, many=True)
+
+        return Response({
+            'user': user_serializer.data,
+            'workouts': workout_serializer.data,
+            'sets': set_serializer.data,
+        })
 
 
 class UserViewSet(viewsets.ModelViewSet):
