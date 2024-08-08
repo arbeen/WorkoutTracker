@@ -66,3 +66,4 @@ Nhan Truong (Authentication):
 - api/token: get jwt
 - api/refresh: refresh jwt
 - api/users: Rest API for users
+- api/recommend: using AI to give user advises exercises
