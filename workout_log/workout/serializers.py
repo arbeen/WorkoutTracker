@@ -18,6 +18,8 @@ class RecommendSerializer(serializers.Serializer):
     goal_weight = serializers.DecimalField(max_digits=5, decimal_places=2)
     duration = serializers.CharField(max_length=100)
 
+class OneRepMaxSerializer(serializers.Serializer):
+    exercise_id = serializers.UUIDField()
 
 class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
