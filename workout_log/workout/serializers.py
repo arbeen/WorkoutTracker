@@ -43,3 +43,20 @@ class SetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Set
         fields = '__all__'
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+class UserWorkoutSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Workout
+        fields = ['name', 'date']
+
+class UserSetSerializer(serializers.ModelSerializer):
+    exercise_name = serializers.CharField(source='exercise.name', read_only=True)
+
+    class Meta:
+        model = Set
+        fields = ['reps', 'weight', 'rest_time', 'created_at', 'exercise_name']
