@@ -13,6 +13,12 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
+class RecommendSerializer(serializers.Serializer):
+    current_weight = serializers.DecimalField(max_digits=5, decimal_places=2)
+    goal_weight = serializers.DecimalField(max_digits=5, decimal_places=2)
+    duration = serializers.CharField(max_length=100)
+
+
 class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout

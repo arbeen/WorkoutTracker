@@ -5,8 +5,7 @@ go inside the workout (server) directory
 
 install django and djangorestframework 
 ```
-
-pip install django djangorestframework  psycopg2-binary rest_framework_simplejwt  
+pip install django djangorestframework psycopg2-binary rest_framework_simplejwt openai
 ```
 
 make migrations and run
