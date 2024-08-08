@@ -1,4 +1,5 @@
 import time
+from decimal import Decimal
 
 from django.contrib.auth import authenticate
 from rest_framework import viewsets, permissions, status, serializers
@@ -12,7 +13,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 from openai import OpenAI
 from .serializers import UserSerializer, WorkoutSerializer, ExerciseSerializer, WeightTypeSerializer, SetSerializer, \
-    RecommendSerializer
+    RecommendSerializer, OneRepMaxSerializer
 from .models import Workout, Exercise, WeightType, Set
 
 
@@ -58,6 +59,22 @@ def recommend_view(request):
         # return Response(content)
         chatgpt_response = get_chatgpt_response(data)
         return Response({'recommendation': chatgpt_response}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# The 1RM is calculated using the Epley formula: 1RM = weight + (weight * reps * 0.0333).
+@api_view(['POST'])
+def calculate_one_rep_max(request):
+    serializer = OneRepMaxSerializer(data=request.data)
+    if serializer.is_valid():
+        exercise_id = serializer.validated_data['exercise_id']
+        sets = Set.objects.filter(exercise_id=exercise_id).order_by('-weight')
+        if sets:
+            max_set = sets[0]
+            one_rep_max = max_set.weight + (max_set.weight * max_set.reps * Decimal('0.0333'))
+            return Response({'one_rep_max': one_rep_max}, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'No sets found for this exercise'}, status=status.HTTP_404_NOT_FOUND)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
