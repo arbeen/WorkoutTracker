@@ -62,8 +62,10 @@ curl --location 'http://127.0.0.1:8000/api/token/refresh/' \
 
 
 Routes:
+
 Nhan Truong (Authentication):
 - api/token: get jwt
 - api/refresh: refresh jwt
 - api/users: Rest API for users
-- api/recommend: using AI to give user advises exercises
+- api/recommend: using personal AI to give user advice exercises
+    - For this feature to work, you must create an ASSISTANT in ChatGPT and set the ASSITANT_ID in ```settings.py```
